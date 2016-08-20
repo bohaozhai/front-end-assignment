@@ -14,7 +14,7 @@ describe('(Component) Header', () => {
   it('Renders a welcome message', () => {
     const welcome = _wrapper.find('h1')
     expect(welcome).to.exist
-    expect(welcome.text()).to.match(/React Redux Starter Kit/)
+    expect(welcome.text()).to.match(/Front End Assignment/)
   })
 
   describe('Navigation links...', () => {
@@ -31,6 +31,14 @@ describe('(Component) Header', () => {
       expect(_wrapper.contains(
         <Link activeClassName={classes.activeRoute} to='/counter'>
           Counter
+        </Link>
+      )).to.be.true
+    })
+
+    it('Should render a Link to Progress Bar Demo route', () => {
+      expect(_wrapper.contains(
+        <Link activeClassName={classes.activeRoute} to='/demo'>
+          Progress Bar Demo
         </Link>
       )).to.be.true
     })
