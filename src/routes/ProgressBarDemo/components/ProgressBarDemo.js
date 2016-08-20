@@ -63,13 +63,12 @@ class ProgressBarDemo extends React.Component {
             let pct = Math.round(value / this.props.limit * 100)
             return (
               <div key={index}>
-                <p>{`Progress ${index + 1}`}</p>
-                <ProgressBar
+                <ProgressBar className={classes.progressBar}
                   now={(value > this.props.limit) ? this.props.limit : value}
-                  label={`${pct}%`}
                   max={this.props.limit}
                   bsStyle={(value >= this.props.limit) ? 'danger' : 'info'}
                 />
+                <p className={classes.percentageLabel}>{`${pct}%`}</p>
               </div>
             )
           }
@@ -81,13 +80,16 @@ class ProgressBarDemo extends React.Component {
   renderBarSelector(barValues) {
     if (barValues.length > 0) {
       return (
-        <DropdownButton
-          id='progress-bar-selector'
-          title={`Progress ${this.props.activeProgressBar + 1}`}
-          onSelect={this.onProgressBarSelectedHandler}
-        >
-          {this.renderBarSelectorItem(barValues)}
-        </DropdownButton>
+        <div className={classes.dropdownList}>
+          <DropdownButton
+            className={classes.dropdownButtonStyle}
+            id='progress-bar-selector'
+            title={`Progress ${this.props.activeProgressBar + 1}`}
+            onSelect={this.onProgressBarSelectedHandler}
+          >
+            {this.renderBarSelectorItem(barValues)}
+          </DropdownButton>
+        </div>
       )
     } else {
       return null
@@ -113,7 +115,7 @@ class ProgressBarDemo extends React.Component {
     if (buttonValues) {
       return (
         buttonValues.map((value, index) => {
-          return <Button
+          return <Button bsSize="small" className={classes.buttonStyle}
             key={index}
             onClick={this.onButtonClickedHandler}>{value}</Button>
         })
@@ -124,7 +126,7 @@ class ProgressBarDemo extends React.Component {
   render() {
     const {barValues, buttonValues} = this.props
     return (
-      <div>
+      <div className={classes.demonContainer}>
         {this.renderBars(barValues)}
         {this.renderBarSelector(barValues)}
         {this.renderButtons(buttonValues)}

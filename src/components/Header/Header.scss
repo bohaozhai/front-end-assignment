@@ -2,3 +2,13 @@
   font-weight: bold;
   text-decoration: underline;
 }
+
+.headerContainer {
+  margin: 0 auto;
+  min-width: 220px;
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 20px;
+    }
+  }
+}
