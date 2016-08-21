@@ -39,7 +39,7 @@ export const selectProgressBar = (index) => {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const progressPageReducer = (state = INIT_STATE, action) => {
+const progressBarDemoReducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case FETCH_DATA:
       return Object.assign({}, state, {
@@ -66,4 +66,4 @@ const progressPageReducer = (state = INIT_STATE, action) => {
   }
 }
 
-export default progressPageReducer
+export default progressBarDemoReducer
