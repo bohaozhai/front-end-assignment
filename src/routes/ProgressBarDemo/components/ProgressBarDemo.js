@@ -1,19 +1,19 @@
-import React from 'react'
+import React from 'react';
 import {
   ProgressBar,
   DropdownButton,
   MenuItem,
   Button
-} from 'react-bootstrap'
-import classes from './ProgressBarDemo.scss'
+} from 'react-bootstrap';
+import classes from './ProgressBarDemo.scss';
 
 class ProgressBarDemo extends React.Component {
 
   constructor(props) {
-    super(props)
-    this.initialProgressBar = this.initialProgressBar.bind(this)
-    this.onButtonClickedHandler = this.onButtonClickedHandler.bind(this)
-    this.onProgressBarSelectedHandler = this.onProgressBarSelectedHandler.bind(this)
+    super(props);
+    this.initialProgressBar = this.initialProgressBar.bind(this);
+    this.onButtonClickedHandler = this.onButtonClickedHandler.bind(this);
+    this.onProgressBarSelectedHandler = this.onProgressBarSelectedHandler.bind(this);
   }
 
   static propTypes = {
@@ -29,51 +29,52 @@ class ProgressBarDemo extends React.Component {
   componentWillMount() {
     this.initialProgressBar();
   };
-  
+
   initialProgressBar() {
     const {fetchData} = this.props;
     var data = null;
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = false;
-    xhr.addEventListener("readystatechange", function () {
+    xhr.addEventListener('readystatechange', function () {
       if (this.readyState === 4) {
         fetchData(JSON.parse(this.responseText));
       }
     });
-    xhr.open("GET", "https://pb-api.herokuapp.com/bars");
+    xhr.open('GET', 'https://pb-api.herokuapp.com/bars');
     xhr.send(data);
   };
 
   onButtonClickedHandler(e) {
-    const {changeProgressBarValue} = this.props
+    const {changeProgressBarValue} = this.props;
     if (parseInt(e.target.textContent)) {
-      changeProgressBarValue(parseInt(e.target.textContent))
+      changeProgressBarValue(parseInt(e.target.textContent));
     }
   }
 
   onProgressBarSelectedHandler(index) {
-    const {selectProgressBar} = this.props
-    selectProgressBar(index)
+    const {selectProgressBar} = this.props;
+    selectProgressBar(index);
   }
 
   renderBars(barValues) {
     if (barValues.length > 0) {
       return (
         barValues.map((value, index) => {
-            let pct = Math.round(value / this.props.limit * 100)
-            return (
-              <div key={index}>
-                <ProgressBar className={classes.progressBar}
-                  now={(value > this.props.limit) ? this.props.limit : value}
-                  max={this.props.limit}
-                  bsStyle={(value >= this.props.limit) ? 'danger' : 'info'}
-                />
-                <p className={classes.percentageLabel}>{`${pct}%`}</p>
-              </div>
-            )
-          }
+          let pct = Math.round(value / this.props.limit * 100);
+          return (
+            <div key={index}>
+              <ProgressBar
+                className={classes.progressBar}
+                now={(value > this.props.limit) ? this.props.limit : value}
+                max={this.props.limit}
+                bsStyle={(value >= this.props.limit) ? 'danger' : 'info'}
+              />
+              <p className={classes.percentageLabel}>{`${pct}%`}</p>
+            </div>
+            );
+        }
         )
-      )
+      );
     }
   }
 
@@ -84,32 +85,32 @@ class ProgressBarDemo extends React.Component {
           <DropdownButton
             bsSize="xsmall"
             className={classes.dropdownButtonStyle}
-            id='progress-bar-selector'
+            id="progress-bar-selector"
             title={`Progress ${this.props.activeProgressBar + 1}`}
             onSelect={this.onProgressBarSelectedHandler}
           >
             {this.renderBarSelectorItem(barValues)}
           </DropdownButton>
         </div>
-      )
+      );
     } else {
-      return null
+      return null;
     }
   }
 
   renderBarSelectorItem(barValues) {
     return (
       barValues.map((value, index) => {
-          return (
-            <MenuItem
-              key={index}
-              eventKey={index}
-            >{`Progress ${index + 1}`}
-            </MenuItem>
-          )
-        }
+        return (
+          <MenuItem
+            key={index}
+            eventKey={index}
+          >{`Progress ${index + 1}`}
+          </MenuItem>
+          );
+      }
       )
-    )
+    );
   }
 
   renderButtons(buttonValues) {
@@ -118,22 +119,22 @@ class ProgressBarDemo extends React.Component {
         buttonValues.map((value, index) => {
           return <Button bsSize="small" className={classes.buttonStyle}
             key={index}
-            onClick={this.onButtonClickedHandler}>{value}</Button>
+            onClick={this.onButtonClickedHandler}>{value}</Button>;
         })
-      )
+      );
     }
   }
 
   render() {
-    const {barValues, buttonValues} = this.props
+    const {barValues, buttonValues} = this.props;
     return (
       <div className={classes.demonContainer}>
         {this.renderBars(barValues)}
         {this.renderBarSelector(barValues)}
         {this.renderButtons(buttonValues)}
       </div>
-    )
+    );
   }
 }
 
-export default ProgressBarDemo
+export default ProgressBarDemo;
