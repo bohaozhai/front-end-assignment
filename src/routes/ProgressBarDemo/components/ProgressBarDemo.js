@@ -82,6 +82,7 @@ class ProgressBarDemo extends React.Component {
       return (
         <div className={classes.dropdownList}>
           <DropdownButton
+            bsSize="xsmall"
             className={classes.dropdownButtonStyle}
             id='progress-bar-selector'
             title={`Progress ${this.props.activeProgressBar + 1}`}
